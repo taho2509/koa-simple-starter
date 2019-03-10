@@ -1,0 +1,6 @@
+{
+    "body-parser": { "active": true },
+    "logger": { "active": true },
+    "response-time": { "active": true },
+    "ping": { "active": true }
+}
