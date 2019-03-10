@@ -1,9 +1,10 @@
 const fs = require('fs')
 const path = require('path')
+const logger = require('../../utils/logger')
 
 module.exports = {
     register: (app) => {
-        console.log('Registering middlewares');
+        logger.info('Registering middlewares');
         let middlewaresConfig = {}
         try {
             middlewaresConfig = JSON.parse(
@@ -19,7 +20,7 @@ module.exports = {
                 if (stats.isDirectory()) {
                     const middleware = require(path.join(__dirname, middlewareFolder))
                     app.use(middleware)
-                    console.log(`-- registered "${middlewareFolder}"`);
+                    logger.verbose(`registered "${middlewareFolder}"`);
                 }
             })
     }
