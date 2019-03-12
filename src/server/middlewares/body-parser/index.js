@@ -1,3 +1,3 @@
 module.exports = require('koa-bodyparser')({
-    jsonLimit: '2mb'
+  jsonLimit: '2mb'
 })
