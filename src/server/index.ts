@@ -1,7 +1,6 @@
 import Koa from 'koa'
 import config from '../config'
 import logger from '../utils/logger'
-import { MiddlewareHandler } from './middlewares';
 
 export class CustomApp extends Koa {
   boot() {
