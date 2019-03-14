@@ -1,19 +1,18 @@
-const winston = require('winston')
-const config = require('../../config')
+import winston, { format } from 'winston'
+import config from '../../config'
 
 // Log levels precedence [error, warn, info, verbose, debug, silly]
-
-const logger = winston.createLogger({
+const logger: winston.Logger = winston.createLogger({
   format: winston.format.json(),
   transports: [
     new winston.transports.Console({
-      format: winston.format.combine(
-        winston.format.colorize(),
-        winston.format.timestamp(),
-        winston.format.align(),
-        winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+      format: format.combine(
+        format.timestamp(),
+        format.align(),
+        format.colorize(),
+        format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
       ),
-      level: config.get('LOG_LEVEL'),
+      level: config.get('LOG_LEVEL').toString(),
       handleExceptions: true
     })
   ]
@@ -26,4 +25,4 @@ const logger = winston.createLogger({
 // logger.debug('log level debug registered')
 // logger.silly('log level silly registered')
 
-module.exports = logger
+export default logger
