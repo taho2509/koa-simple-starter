@@ -1,7 +1,8 @@
-const envKeys: Array<string> = ['PORT', 'NODE_ENV', 'LOG_LEVEL']
+type EnvKey = 'PORT'| 'NODE_ENV'| 'LOG_LEVEL'
+const envKeys: Array<EnvKey> = ['PORT', 'NODE_ENV', 'LOG_LEVEL']
 
 interface Configurations {
-  get: (key: string) => string | number
+  get: (key: EnvKey) => string | number
 }
 
 function configureEnvironmentVariables(): Configurations {

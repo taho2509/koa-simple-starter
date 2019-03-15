@@ -14,7 +14,7 @@ export class CustomApp extends Koa {
   }
 
   init() {
-    const PORT = config.get('PORT') || 8080
+    const PORT = parseInt(config.get('PORT').toString(), 10) || 8080
     this.listen(PORT)
     logger.info(`Server started on port: ${PORT}`)
   }
