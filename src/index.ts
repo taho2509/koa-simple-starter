@@ -1,4 +1,4 @@
-import { CustomApp } from './server'
+import app from './server'
 
 process.on("uncaughtException", e => {
   console.log(e);
@@ -9,6 +9,5 @@ process.on("unhandledRejection", e => {
   process.exit(1);
 });
 
-const app = new CustomApp()
 app.boot()
-app.init()
+app.on('application:booted', app.init)
