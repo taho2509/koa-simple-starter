@@ -1,9 +1,12 @@
+VER PORQUE LOS MIDDLEWARES CARGAN LUEGO DE QUE LA APP LEVANTE
+
+cors
+plugins
 registrar rutas
 autenticacion
-cors
+error handling
 https
 background processess
-plugins
-error handling
 
-typescripit
+tslint or standard lint
+.vscode configuration
