@@ -11,11 +11,16 @@ const app = koaApp as CustomApp
 app.boot = async () => {
   logger.info('Environment variables loaded:')
   config.getAll().forEach((val, key) => logger.info(` - ${key}: ${val}`))
-  
+
+  // Loading middlewares
   const { default: middlewaresHandler } = await import('./middlewares')
   await middlewaresHandler.register(app)
+
+  // Loading routes
+  const { default: routesHandler } = await import('../endpoints')
+  await routesHandler.setRouter(app)
+
   logger.info('Application booting process ended.')
-  
   app.emit('application:booted')
 }
 

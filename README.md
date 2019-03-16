@@ -1,8 +1,6 @@
-VER PORQUE LOS MIDDLEWARES CARGAN LUEGO DE QUE LA APP LEVANTE
-
 cors
 plugins
-registrar rutas
+registrar rutas (arbol de rutas)
 autenticacion
 error handling
 https
