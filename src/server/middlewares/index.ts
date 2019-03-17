@@ -3,6 +3,7 @@ import path from 'path'
 import logger from '../../utils/logger'
 import { CustomApp } from '..';
 import { Middleware } from 'koa';
+import middlewaresOrder from './order_configuration'
 
 export interface MiddlewareHandler {
   register: (app: CustomApp) => void;
@@ -12,21 +13,13 @@ const middlewareHandler: MiddlewareHandler = {
   register: (app) => {
     return new Promise(async (resolve, reject) => {
       logger.info('Registering middlewares:')
-      let middlewaresConfig: { [s: string]: { active: boolean } } = {}
-      try {
-        middlewaresConfig = JSON.parse(
-          fs.readFileSync(path.join(__dirname, 'order_configuration.json'), { encoding: 'utf8' })
-        )
-      } catch (error) {
-        throw new Error('"order_configuration.json" file no found.')
-      }
-  
+
       const defers: {name: string, module: Promise<{ default: Middleware }>}[] = []
-      Object.keys(middlewaresConfig)
+      Object.keys(middlewaresOrder)
         .forEach(middlewareFolder => {
           const middlewarePath = path.join(__dirname, middlewareFolder)
           const stats = fs.lstatSync(middlewarePath)
-          if (stats.isDirectory() && middlewaresConfig[middlewareFolder].active) {
+          if (stats.isDirectory() && middlewaresOrder[middlewareFolder].active) {
             defers.push({ name: middlewareFolder, module: import(middlewarePath)})
           }
         })

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node -r dotenv/config build/index.js",
     "start:dev": "nodemon -r dotenv/config --exec ts-node src/index.ts",
-    "build": "tsc -p . && cp src/server/middlewares/order_configuration.json build/server/middlewares/",
+    "build": "tsc -p .",
     "lint": "standard --parser --fix typescript-eslint-parser --plugin typescript src/*.ts",
     "test": "jest --coverage --verbose"
   },
