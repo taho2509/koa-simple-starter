@@ -1,5 +1,5 @@
 import fs from 'fs'
-import path, { dirname } from 'path'
+import path from 'path'
 import { Middleware } from 'koa';
 import Router from 'koa-router'
 import logger from '../utils/logger'

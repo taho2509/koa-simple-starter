@@ -27,10 +27,16 @@ app.boot = async () => {
 app.init = () => {
   const PORT = parseInt(config.get('PORT'), 10) || 8080
   app.listen(PORT)
+  app.context.startTime = Date.now()
   logger.info(`Server started on port: ${PORT}`)
   
   app.emit('application:started')
 }
+
+app.on('error', (err: Error, ctx) => {
+  logger.error(err.toString())
+  logger.debug(err.stack || '')
+})
 
 export default app 
 

@@ -1,4 +1,5 @@
 import { Route } from "..";
+import healthyCheckController from './controller'
 
 const route: Route = {
   method: 'get',
@@ -6,8 +7,7 @@ const route: Route = {
   controller: async ctx => {
     ctx.status = 200
     ctx.body = {
-      date: Date.now(),
-      status: 'life'
+      ...healthyCheckController.getSoftwareData(ctx.startTime)
     }
   } 
 }
