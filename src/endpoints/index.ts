@@ -15,7 +15,8 @@ const getFullPath = (f: string) => path.join(__dirname, f)
 const isDirectory = (f: string) => fs.lstatSync(f).isDirectory()
 const getInnerDirectories = (folder: string) => fs.readdirSync(folder).filter(innerFile => isDirectory(path.join(folder, innerFile)))
 const isValidRouteDirectory = (f: string) => {
-  return fs.lstatSync(f).isDirectory() && f !== 'controller' && fs.readdirSync(f).indexOf('index.ts') > -1
+  const hasIndexFile = (folder: string) => fs.readdirSync(folder).indexOf('index.ts') > -1 || fs.readdirSync(folder).indexOf('index.js') > -1  
+  return fs.lstatSync(f).isDirectory() && hasIndexFile(f)
 }
 
 const getRoutesTree = (currentPath: string, routes: string[] = []) => {

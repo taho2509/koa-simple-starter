@@ -5,10 +5,11 @@
   "main": "build/index.js",
   "scripts": {
     "start": "node -r dotenv/config build/index.js",
+    "prestart": "npm run build",
     "start:dev": "nodemon -r dotenv/config --exec ts-node src/index.ts",
     "build": "tsc -p .",
     "lint": "standard --parser --fix typescript-eslint-parser --plugin typescript src/*.ts",
-    "test": "jest --coverage --verbose"
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
