@@ -1,5 +1,5 @@
 {
-  "name": "simple-koa",
+  "name": "koa-simple-starter",
   "version": "1.0.0",
   "description": "Base REST api web server built using Koa framework and using typescript and some good practices",
   "main": "build/index.js",

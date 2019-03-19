@@ -8,6 +8,7 @@ import { CustomApp } from '../server'
 export interface Route {
   method: 'get'| 'post'| 'put'| 'delete',
   path: string,
+  preMiddlewares?: Middleware[],
   controller: Middleware
 }
 
@@ -52,13 +53,15 @@ export default {
       const routes = await Promise.all(defers)
       routes
         .map(r => r.default)
-        .forEach(({ method, path: privatePath, controller }, index) => {
+        .forEach(({ method, path: privatePath, controller, preMiddlewares = []}, index) => {
           const fullPath = validRoutes[index]
           const routePath = path.join(
             fullPath.substring(fullPath.indexOf(__dirname) + __dirname.length),
             privatePath
           ).replace(/\\/g, '/')
-          router[method](routePath , controller)
+          
+          // Register route on router
+          router[method](routePath, ...preMiddlewares, controller)
           logger.verbose(`Registered route [${method.toUpperCase()}] ${routePath}`)
         })
   
