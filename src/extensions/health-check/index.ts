@@ -1,5 +1,9 @@
 import fs from 'fs'
 import path from 'path'
+import Router from 'koa-router'
+import { AppExtension } from ".."
+import { CustomApp } from "../../server";
+import logger from '../../utils/logger';
 
 function parseMsToHumanTime(ms: number, delim = ": ") {
   const showWith0 = (value: number) => (value < 10 ? `0${value}` : `${value}`);
@@ -21,4 +25,19 @@ const healthyCheckController = {
   }
 }
 
-export default healthyCheckController 
+export const options = {}
+
+const healthyCheckExtension: AppExtension = {
+  load(app: CustomApp) {
+    const router: Router = app.context.router
+    if (router) {
+      logger.verbose(`registered route [GET] /health`)
+      router.get('/health', ctx => {
+        ctx.status = 200
+        ctx.body = { ...healthyCheckController.getSoftwareData(ctx.startTime) }
+      })
+    }
+  }
+}
+
+export default healthyCheckExtension

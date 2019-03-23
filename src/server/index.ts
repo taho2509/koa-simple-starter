@@ -22,6 +22,10 @@ app.boot = async () => {
   const { default: routesHandler } = await import('../endpoints')
   await routesHandler.setRouter(app)
 
+  // Loading extensions
+  const { default: extensionsHandler } = await import('../extensions')
+  await extensionsHandler.register(app)
+
   logger.info('Application booting process ended.')
   app.emit('application:booted')
 }

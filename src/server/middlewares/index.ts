@@ -6,12 +6,12 @@ import { Middleware } from 'koa';
 import middlewaresOrder from './order_configuration'
 
 export interface MiddlewareHandler {
-  register: (app: CustomApp) => void;
+  register: (app: CustomApp) => Promise<void>;
 }
 
 const middlewareHandler: MiddlewareHandler = {
   register: (app) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async resolve => {
       logger.info('Registering middlewares:')
 
       const defers: {name: string, module: Promise<{ default: Middleware }>}[] = []
