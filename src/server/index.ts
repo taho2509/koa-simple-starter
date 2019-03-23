@@ -1,4 +1,5 @@
 import Koa from 'koa'
+import Router from 'koa-router'
 import config from '../config'
 import logger from '../utils/logger'
 
@@ -17,6 +18,7 @@ app.boot = async () => {
   await middlewaresHandler.register(app)
 
   // Loading routes
+  app.context.router = new Router()
   const { default: routesHandler } = await import('../endpoints')
   await routesHandler.setRouter(app)
 

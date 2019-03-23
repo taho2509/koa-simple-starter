@@ -1,7 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { Middleware } from 'koa';
-import Router from 'koa-router'
+import { Middleware } from 'koa'
 import logger from '../utils/logger'
 import { CustomApp } from '../server'
 
@@ -39,7 +38,6 @@ export default {
   setRouter: (app: CustomApp) => {
     return new Promise(async (resolve, reject) => {
       logger.info('Registering routes:')
-      const router = new Router()
       
       const validRoutes: string[] = []
       fs.readdirSync(__dirname)
@@ -61,11 +59,11 @@ export default {
           ).replace(/\\/g, '/')
           
           // Register route on router
-          router[method](routePath, ...preMiddlewares, controller)
+          app.context.router[method](routePath, ...preMiddlewares, controller)
           logger.verbose(`Registered route [${method.toUpperCase()}] ${routePath}`)
         })
   
-      app.use(router.routes())
+      app.use(app.context.router.routes())
       app.emit('application:routes:loaded')
       resolve()
     })
