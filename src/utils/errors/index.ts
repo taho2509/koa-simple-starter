@@ -1,11 +1,9 @@
 class AbstractError extends Error {
-  private meta: object
+  meta: object
 
   constructor(message: string, meta: object = {}) {
     super(message)
-
-    Error.call(this)
-    Error.captureStackTrace(this)
+    Error.captureStackTrace(this, this.constructor)
     this.name = this.constructor.name
     this.meta = meta
   }

@@ -25,8 +25,6 @@ const healthyCheckController = {
   }
 }
 
-export const options = {}
-
 const healthyCheckExtension: AppExtension = {
   load(app: CustomApp) {
     const router: Router = app.context.router
