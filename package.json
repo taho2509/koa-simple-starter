@@ -29,6 +29,7 @@
     "@types/koa-convert": "^1.2.2",
     "@types/koa-cors": "0.0.0",
     "@types/koa-router": "^7.0.40",
+    "@types/node": "^11.13.1",
     "@types/winston": "^2.4.4",
     "eslint-plugin-typescript": "^0.14.0",
     "jest": "^24.5.0",
