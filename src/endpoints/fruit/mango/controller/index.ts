@@ -1,3 +1,3 @@
 export default {
-  get: () => ['filipino', 'chino']
+  get: (): string[] => ['filipino', 'chino'],
 }

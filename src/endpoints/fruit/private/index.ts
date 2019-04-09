@@ -5,10 +5,10 @@ const route: Route = {
   method: 'get',
   privateRoute: true,
   preMiddlewares: [],
-  controller: ctx => {
+  controller: (ctx): void => {
     ctx.status = 200
     ctx.body = 'You may pass'
-  }
+  },
 }
 
 export default route

@@ -10,12 +10,12 @@ const logger: winston.Logger = winston.createLogger({
         format.timestamp(),
         format.align(),
         format.colorize(),
-        format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
+        format.printf((info): string => `${info.timestamp} ${info.level}: ${info.message}`),
       ),
       level: config.get('LOG_LEVEL').toString(),
-      handleExceptions: true
-    })
-  ]
+      handleExceptions: true,
+    }),
+  ],
 })
 
 // logger.error('log level error registered')

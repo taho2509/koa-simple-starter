@@ -5,14 +5,19 @@ import config from '../config'
 import logger from '../utils/logger'
 
 export interface CustomApp extends Koa {
-  boot: () => void,
+  boot: () => void
   init: () => void
 }
 const koaApp: Koa = new Koa()
 const app = koaApp as CustomApp
-app.boot = async () => {
+
+app.boot = async (): Promise<void> => {
   logger.info('Environment variables loaded:')
-  config.getAll().forEach((val, key) => logger.info(` - ${key}: ${val}`))
+  config.getAll().forEach(
+    (val, key): void => {
+      logger.info(` - ${key}: ${val}`)
+    },
+  )
 
   // Loading middlewares
   const { default: middlewaresHandler } = await import('./middlewares')
@@ -31,20 +36,21 @@ app.boot = async () => {
   app.emit('application:booted')
 }
 
-app.init = () => {
+app.init = (): void => {
   const PORT = parseInt(config.get('PORT'), 10) || 8080
   app.listen(PORT)
   app.context.startTime = Date.now()
   logger.info(`Server started on port: ${PORT}`)
-  
+
   app.emit('application:started')
 }
 
-app.on('error', (err: Error, ctx) => {
-  logger.error(err.toString())
-  logger.debug(err.stack || '')
-})
+app.on(
+  'error',
+  (err: Error): void => {
+    logger.error(err.toString())
+    logger.debug(err.stack || '')
+  },
+)
 
-export default app 
-
-
+export default app

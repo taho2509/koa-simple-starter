@@ -2,9 +2,10 @@
 
 ## Description:
 Simple koa server app written in Typescript with some good practices built in. Like: 
- - automatic routes detection
+ - automatic routes detection and configuration
  - dynamic middlewares declaration
  - logger configuration 
+ - eslint-typescript prettier configuration
  - and others fancy things.
 
 ## How to Install
@@ -26,5 +27,4 @@ dockerfile and build commands
 	- complex environment load
 	- testing
 
-tslint or standard lint
 .vscode configuration // basic debug
