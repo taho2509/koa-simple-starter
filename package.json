@@ -9,7 +9,7 @@
     "start:dev": "nodemon -r dotenv/config --exec ts-node src/index.ts",
     "start:build": "node -r dotenv/config build/index.js",
     "build": "npx tsc -p .",
-    "lint": "npx standard --parser --fix typescript-eslint-parser --plugin typescript src/*.ts",
+    "lint": "eslint ./src/**/*.ts",
     "test": "jest --verbose"
   },
   "keywords": [],
@@ -32,21 +32,18 @@
     "@types/koa-router": "^7.0.40",
     "@types/node": "^11.13.1",
     "@types/winston": "^2.4.4",
-    "eslint-plugin-typescript": "^0.14.0",
+    "@typescript-eslint/eslint-plugin": "^1.6.0",
+    "@typescript-eslint/parser": "^1.6.0",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.5.0",
     "module-alias": "^2.2.0",
     "nodemon": "^1.18.10",
-    "standard": "^12.0.1",
+    "prettier": "^1.16.4",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
-    "typescript": "^3.3.3333",
-    "typescript-eslint-parser": "^22.0.0"
-  },
-  "standard": {
-    "parser": "typescript-eslint-parser",
-    "plugins": [
-      "typescript"
-    ]
+    "typescript": "^3.3.3333"
   },
   "jest": {
     "verbose": true,
