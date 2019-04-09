@@ -7,9 +7,6 @@ Simple koa server app written in Typescript with some good practices built in. L
  - logger configuration 
  - and others fancy things.
 
-- simple list
-- another item
-
 ## How to Install
 Run `npm install`
 scripts:
@@ -21,14 +18,15 @@ scripts:
 
 
 ###TODOS:
---- 
-plugins
 autenticacion
 https
 background processess
 custom errors configuration
 jest tests
 not found route handler
+dockerfile and build commands
+	- complex environment load
+	- testing
 
 tslint or standard lint
 .vscode configuration // basic debug
