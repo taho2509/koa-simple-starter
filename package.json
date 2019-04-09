@@ -9,7 +9,7 @@
     "start:dev": "nodemon -r dotenv/config --exec ts-node src/index.ts",
     "start:build": "node -r dotenv/config build/index.js",
     "build": "npx tsc -p .",
-    "lint": "standard --parser --fix typescript-eslint-parser --plugin typescript src/*.ts",
+    "lint": "npx standard --parser --fix typescript-eslint-parser --plugin typescript src/*.ts",
     "test": "jest --verbose"
   },
   "keywords": [],
@@ -34,6 +34,7 @@
     "@types/winston": "^2.4.4",
     "eslint-plugin-typescript": "^0.14.0",
     "jest": "^24.5.0",
+    "module-alias": "^2.2.0",
     "nodemon": "^1.18.10",
     "standard": "^12.0.1",
     "ts-jest": "^24.0.0",
@@ -61,5 +62,8 @@
       "json",
       "node"
     ]
+  },
+  "_moduleAliases": {
+    "@src": "src"
   }
 }

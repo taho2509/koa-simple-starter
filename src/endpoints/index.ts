@@ -1,13 +1,15 @@
 import fs from 'fs'
 import path from 'path'
 import { Middleware } from 'koa'
-import logger from '../utils/logger'
-import { CustomApp } from '../server'
-import { hasIndexFile, isDirectory, getInnerDirectories, getFullPath } from '../utils/functions'
+import { CustomApp } from '@src/server'
+import { hasIndexFile, isDirectory, getInnerDirectories, getFullPath } from '@src/utils/functions'
+import logger from '@src/utils/logger'
+import { authenticationMiddleware } from '@src/utils/authentication';
 
 export interface Route {
   method: 'get'| 'post'| 'put'| 'delete',
   path: string,
+  privateRoute?: boolean,
   preMiddlewares?: Middleware[],
   controller: Middleware
 }
@@ -48,7 +50,8 @@ export default {
       const routes = await Promise.all(defers)
       routes
         .map(r => r.default)
-        .forEach(({ method, path: privatePath, controller, preMiddlewares = []}, index) => {
+        .forEach((route, index) => {
+          const { method, path: privatePath, controller, preMiddlewares = [], privateRoute = false } = route
           const fullPath = validRoutes[index]
           const routePath = path.join(
             fullPath.substring(fullPath.indexOf(__dirname) + __dirname.length),
@@ -56,6 +59,7 @@ export default {
           ).replace(/\\/g, '/')
           
           // Register route on router
+          if (privateRoute) { preMiddlewares.push(authenticationMiddleware) } // register authentication middleware handler
           app.context.router[method](routePath, ...preMiddlewares, controller)
           logger.verbose(`Registered route [${method.toUpperCase()}] ${routePath}`)
         })

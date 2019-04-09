@@ -18,12 +18,10 @@ scripts:
 
 
 ###TODOS:
-autenticacion
 https
 background processess
 custom errors configuration
 jest tests
-not found route handler
 dockerfile and build commands
 	- complex environment load
 	- testing
