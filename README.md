@@ -27,4 +27,4 @@ dockerfile and build commands
 	- complex environment load
 	- testing
 
-.vscode configuration // basic debug
+.vscode tests debug configuration

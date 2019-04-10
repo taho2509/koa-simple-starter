@@ -1,6 +1,6 @@
-import { Middleware } from "koa";
+import { Middleware } from 'koa'
 
-const responseTimeMiddleware: Middleware = async (ctx, next) => {
+const responseTimeMiddleware: Middleware = async (ctx, next): Promise<void> => {
   const start = Date.now()
   await next()
   const ms = Date.now() - start

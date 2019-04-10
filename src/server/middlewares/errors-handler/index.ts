@@ -1,6 +1,6 @@
-import { Middleware } from 'koa';
+import { Middleware } from 'koa'
 
-const errorsHandler: Middleware = async (ctx, next) => {
+const errorsHandler: Middleware = async (ctx, next): Promise<void> => {
   try {
     await next()
   } catch (error) {

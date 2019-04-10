@@ -9,7 +9,7 @@
     "start:dev": "nodemon -r dotenv/config --exec ts-node src/index.ts",
     "start:build": "node -r dotenv/config build/index.js",
     "build": "npx tsc -p .",
-    "lint": "eslint ./src/**/*.ts",
+    "lint": "eslint . --ext .ts",
     "test": "jest --verbose"
   },
   "keywords": [],
@@ -61,6 +61,6 @@
     ]
   },
   "_moduleAliases": {
-    "@src": "src"
+    "@src": "build"
   }
 }

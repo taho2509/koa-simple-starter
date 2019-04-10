@@ -9,11 +9,12 @@
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceFolder}/src/index.ts",
-      "env": {"LOG_LEVEL": "debug", "PORT":"3000", "NODE_ENV": "DEV"},
+      "env": {"LOG_LEVEL": "debug", "PORT":"8090", "NODE_ENV": "DEV"},
       "preLaunchTask": "npm: build",
       "sourceMaps": true,
       "smartStep": true,
       "internalConsoleOptions": "openOnSessionStart",
+      "console": "integratedTerminal",
       "outFiles": [
         "${workspaceFolder}/build/**/*.js"
       ]
