@@ -10,7 +10,8 @@
     "start:build": "node -r dotenv/config build/index.js",
     "build": "npx tsc -p .",
     "lint": "eslint . --ext .ts",
-    "test": "jest --verbose"
+    "test": "jest --detectOpenHandles --runInBand --forceExit",
+    "test:watch": "npm test -- --watchAll --runInBand --notify"
   },
   "keywords": [],
   "author": "Ernesto Fuentes Gómez",
@@ -44,21 +45,6 @@
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
     "typescript": "^3.3.3333"
-  },
-  "jest": {
-    "verbose": true,
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
   },
   "_moduleAliases": {
     "@src": "build"
