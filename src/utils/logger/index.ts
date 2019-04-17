@@ -1,8 +1,13 @@
-import winston, { format } from 'winston'
+import winston, { format, Logger } from 'winston'
 import config from '../../config'
 
+interface WinstonLogger extends Logger {
+  mute: () => void
+  unmute: () => void
+}
+
 // Log levels precedence [error, warn, info, verbose, debug, silly]
-const logger: winston.Logger = winston.createLogger({
+const logger: Logger = winston.createLogger({
   format: winston.format.json(),
   transports: [
     new winston.transports.Console({
@@ -25,4 +30,12 @@ const logger: winston.Logger = winston.createLogger({
 // logger.debug('log level debug registered')
 // logger.silly('log level silly registered')
 
-export default logger
+const appLogger = logger as WinstonLogger
+appLogger.mute = function(): void {
+  this.level = 'none'
+}
+appLogger.unmute = function(): void {
+  this.level = config.get('LOG_LEVEL').toString()
+}
+
+export default appLogger
