@@ -1,7 +1,7 @@
 import sinon from 'sinon'
-import fs from 'fs'
+import fs, { Stats } from 'fs'
 import logger from '@src/utils/logger'
-import { getFullPath, getInnerDirectories } from './index'
+import { getFullPath, getInnerDirectories, isDirectory } from './index'
 
 const sandbox = sinon.createSandbox()
 
@@ -72,6 +72,38 @@ describe('Utility functions tests', (): void => {
       } catch (error) {
         throw error
       }
+    })
+  })
+
+  describe('Function isDirectory', (): void => {
+    const testPath = '/dummy/path'
+
+    it('should throw an error when path is unaccesible or inexistent', (): void => {
+      try {
+        isDirectory(testPath)
+      } catch (error) {
+        expect(error.path).toBe(testPath)
+      }
+    })
+
+    it('should return false if path is not a directory', (): void => {
+      const lstatStub = sandbox.stub(fs, 'lstatSync').returns(new Stats())
+
+      const result = isDirectory(testPath)
+
+      lstatStub.calledWith(testPath)
+      expect(result).toBeFalsy()
+    })
+
+    it('should return true if path is a directory', (): void => {
+      const validDirectoryStats = new Stats()
+      const lstatStub = sandbox.stub(fs, 'lstatSync').returns(validDirectoryStats)
+      sandbox.stub(validDirectoryStats, 'isDirectory').returns(true)
+
+      const result = isDirectory(testPath)
+
+      lstatStub.calledWith(testPath)
+      expect(result).toBeTruthy()
     })
   })
 })

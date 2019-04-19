@@ -11,7 +11,9 @@
     "build": "npx tsc -p .",
     "lint": "eslint . --ext .ts",
     "test": "jest --detectOpenHandles --runInBand --forceExit",
-    "test:watch": "npm test -- --watchAll --runInBand"
+    "test:watch": "npm test -- --watchAll --runInBand",
+    "coverage": "npm test -- --coverage --no-cache --detectOpenHandles",
+    "coverage:watch": "npm run coverage -- --forceExit --watch"
   },
   "keywords": [],
   "author": "Ernesto Fuentes Gómez",
