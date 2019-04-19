@@ -1,7 +1,7 @@
 import sinon from 'sinon'
-import fs, { Stats, Dirent } from 'fs'
+import fs from 'fs'
 import logger from '@src/utils/logger'
-import * as functions from './index'
+import { getFullPath, getInnerDirectories } from './index'
 
 const sandbox = sinon.createSandbox()
 
@@ -24,7 +24,7 @@ describe('Utility functions tests', (): void => {
       const parentFolder = '/dummy/folder'
       const fileName = 'dummyFilename.ts'
 
-      const resultPath = functions.getFullPath(parentFolder, fileName)
+      const resultPath = getFullPath(parentFolder, fileName)
       expect(resultPath).toBe(parentFolder + '/' + fileName)
     })
   })
@@ -34,7 +34,7 @@ describe('Utility functions tests', (): void => {
 
     it('should throw an error when path is unaccesible or inexistent', (): void => {
       try {
-        functions.getInnerDirectories(testFolderPath)
+        getInnerDirectories(testFolderPath)
         throw new Error('this should not happend')
       } catch (error) {
         expect(error.path).toBe(testFolderPath)
@@ -45,7 +45,7 @@ describe('Utility functions tests', (): void => {
       sandbox.stub(fs, 'readdirSync').returns([])
 
       try {
-        const res = functions.getInnerDirectories(testFolderPath)
+        const res = getInnerDirectories(testFolderPath)
         expect(res).toHaveLength(0)
       } catch (error) {
         throw error
@@ -53,22 +53,22 @@ describe('Utility functions tests', (): void => {
     })
 
     it('should get directories on a valid folder', (): void => {
-      /* const dir: Dirent = {
-        name: 'dir',
-        isFile: (): boolean => false,
-        isDirectory: (): boolean => true,
-        isBlockDevice: (): boolean => false,
-        isCharacterDevice: (): boolean => false,
-        isSymbolicLink: (): boolean => false,
-        isFIFO: (): boolean => false,
-        isSocket: (): boolean => false,
-      } */
-
-      sandbox.stub(fs, 'readdirSync').returns([])
+      sandbox.stub(fs, 'readdirSync').returns([
+        {
+          isDirectory: (): boolean => true,
+          isFile: (): boolean => false,
+          isBlockDevice: (): boolean => false,
+          isCharacterDevice: (): boolean => false,
+          isSymbolicLink: (): boolean => false,
+          isFIFO: (): boolean => false,
+          isSocket: (): boolean => false,
+          name: 'dir',
+        },
+      ])
 
       try {
-        const res = functions.getInnerDirectories(testFolderPath)
-        expect(res).toHaveLength(0)
+        const res = getInnerDirectories(testFolderPath)
+        expect(res).toHaveLength(1)
       } catch (error) {
         throw error
       }

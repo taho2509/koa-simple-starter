@@ -1,6 +1,6 @@
 import { CustomApp } from '../server'
 import logger from '../utils/logger'
-import { getInnerDirectories, hasIndexFile, getFullPath } from '../utils/functions'
+import { getInnerDirectories, hasIndexFile, getFullPath, isDirectory } from '../utils/functions'
 
 export interface AppExtension {
   load: (app: CustomApp) => void
