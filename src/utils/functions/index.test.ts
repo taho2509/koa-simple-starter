@@ -1,5 +1,5 @@
-import sinon from 'sinon'
 import fs, { Stats } from 'fs'
+import sinon from 'sinon'
 import logger from '@src/utils/logger'
 import { getFullPath, getInnerDirectories, isDirectory, hasIndexFile } from './index'
 
@@ -14,8 +14,13 @@ describe('Utility functions tests', (): void => {
 
   afterEach(
     (): void => {
-      logger.unmute()
       sandbox.restore()
+    },
+  )
+
+  afterAll(
+    (): void => {
+      logger.unmute()
     },
   )
 
