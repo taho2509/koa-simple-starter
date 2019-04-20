@@ -1,8 +1,7 @@
-type EnvKey = 'PORT' | 'NODE_ENV' | 'LOG_LEVEL'
-const envKeys: EnvKey[] = ['PORT', 'NODE_ENV', 'LOG_LEVEL']
+const envKeys: string[] = ['PORT', 'NODE_ENV', 'LOG_LEVEL']
 
 interface Configurations {
-  get: (key: EnvKey) => string
+  get: (key: string) => string
   getAll: () => Map<string, string | undefined>
 }
 

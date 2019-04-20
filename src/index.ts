@@ -11,7 +11,9 @@ process.on(
 process.on(
   'unhandledRejection',
   (reason, p): void => {
-    logger.error('Unhandled Rejection at: Promise ', p, ' reason: ', reason)
+    logger.error('Unhandled Rejection.')
+    logger.debug('Promise', p)
+    logger.debug('Reason :', reason)
     process.exit(1)
   },
 )

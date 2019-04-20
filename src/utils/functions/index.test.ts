@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import fs, { Stats } from 'fs'
 import logger from '@src/utils/logger'
-import { getFullPath, getInnerDirectories, isDirectory } from './index'
+import { getFullPath, getInnerDirectories, isDirectory, hasIndexFile } from './index'
 
 const sandbox = sinon.createSandbox()
 
@@ -103,6 +103,52 @@ describe('Utility functions tests', (): void => {
       const result = isDirectory(testPath)
 
       lstatStub.calledWith(testPath)
+      expect(result).toBeTruthy()
+    })
+  })
+
+  describe('Function hasIndexFile', (): void => {
+    const testPath = '/dummy/path'
+
+    it('should throw an error if directory does not exists or is invalid', (): void => {
+      try {
+        hasIndexFile(testPath)
+      } catch (error) {
+        expect(error.path).toBe(testPath)
+      }
+    })
+    it('should return false if directory does not has an index file in it', (): void => {
+      sandbox.stub(fs, 'readdirSync').returns([
+        {
+          isDirectory: (): boolean => true,
+          isFile: (): boolean => false,
+          isBlockDevice: (): boolean => false,
+          isCharacterDevice: (): boolean => false,
+          isSymbolicLink: (): boolean => false,
+          isFIFO: (): boolean => false,
+          isSocket: (): boolean => false,
+          name: 'bad.ts',
+        },
+      ])
+
+      const result = hasIndexFile(testPath)
+      expect(result).toBeFalsy()
+    })
+    it('should return true if directory has an index file in it', (): void => {
+      sandbox.stub(fs, 'readdirSync').returns([
+        {
+          isDirectory: (): boolean => true,
+          isFile: (): boolean => false,
+          isBlockDevice: (): boolean => false,
+          isCharacterDevice: (): boolean => false,
+          isSymbolicLink: (): boolean => false,
+          isFIFO: (): boolean => false,
+          isSocket: (): boolean => false,
+          name: 'index.ts',
+        },
+      ])
+
+      const result = hasIndexFile(testPath)
       expect(result).toBeTruthy()
     })
   })
