@@ -1,22 +1,20 @@
 import winston, { format, Logger } from 'winston'
 import config from '../../config'
+import { TransformableInfo } from 'logform'
 
 interface WinstonLogger extends Logger {
   mute: () => void
   unmute: () => void
 }
 
+export const formatLog = (info: TransformableInfo): string => `${info.timestamp} ${info.level}: ${info.message}`
+
 // Log levels precedence [error, warn, info, verbose, debug, silly]
 const logger: Logger = winston.createLogger({
   format: winston.format.json(),
   transports: [
     new winston.transports.Console({
-      format: format.combine(
-        format.timestamp(),
-        format.align(),
-        format.colorize(),
-        format.printf((info): string => `${info.timestamp} ${info.level}: ${info.message}`),
-      ),
+      format: format.combine(format.timestamp(), format.align(), format.colorize(), format.printf(formatLog)),
       level: config.get('LOG_LEVEL').toString(),
       handleExceptions: true,
     }),
