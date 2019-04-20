@@ -19,6 +19,7 @@
   "author": "Ernesto Fuentes Gómez",
   "license": "ISC",
   "dependencies": {
+    "@shopify/jest-koa-mocks": "^2.1.2",
     "dotenv": "^6.2.0",
     "koa": "^2.7.0",
     "koa-bodyparser": "^4.2.1",
