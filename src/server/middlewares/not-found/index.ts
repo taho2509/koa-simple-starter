@@ -3,7 +3,7 @@ import { NotFoundError } from '../../../utils/errors'
 
 const notFoundHandler: Middleware = async (ctx, next): Promise<void> => {
   await next()
-  if (ctx.res.statusCode === 404) {
+  if (ctx.response.status === 404) {
     ctx.status = 404
     ctx.body = {
       error: new NotFoundError(ctx.request.url, 'route', {
