@@ -1,4 +1,4 @@
-import logger from '../../../utils/logger'
+import logger from '@src/utils/logger'
 import { Middleware } from 'koa'
 
 const loggerMiddleware: Middleware = async (ctx, next): Promise<void> => {
