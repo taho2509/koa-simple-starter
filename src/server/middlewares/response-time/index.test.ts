@@ -6,9 +6,12 @@ import responseTimeMiddleware from './index'
 const sandbox = sinon.createSandbox()
 
 describe('ResponseTime Middeware', (): void => {
+  let clock: sinon.SinonFakeTimers
+
   beforeAll(
     (): void => {
       logger.mute()
+      clock = sinon.useFakeTimers()
     },
   )
 
@@ -21,15 +24,24 @@ describe('ResponseTime Middeware', (): void => {
   afterAll(
     (): void => {
       logger.unmute()
+      clock.restore()
     },
   )
 
   it('should set x-response-time header on response after call', async (done): Promise<void> => {
+    const timeout = 10
     const mockedContext = createMockContext()
 
-    await responseTimeMiddleware(mockedContext, sandbox.stub())
+    await responseTimeMiddleware(
+      mockedContext,
+      sandbox.stub().callsFake(
+        (): void => {
+          clock.tick(timeout)
+        },
+      ),
+    )
     expect(mockedContext.response.header).toHaveProperty('x-response-time')
-    expect(mockedContext.response.header['x-response-time']).toEqual('1ms')
+    expect(mockedContext.response.header['x-response-time']).toEqual(`${timeout}ms`)
     done()
   })
 })
