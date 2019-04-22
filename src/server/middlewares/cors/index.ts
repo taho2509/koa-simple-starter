@@ -1,4 +1,3 @@
-import cors from 'koa-cors'
-import convert from 'koa-convert'
+import cors from '@koa/cors'
 
-export default convert(cors())
+export default cors()
