@@ -1,4 +1,8 @@
-const middlewaresOrder: { [s: string]: { active: boolean } } = {
+export interface MiddlewaresOrder {
+  [s: string]: { active: boolean }
+}
+
+const middlewaresOrder: MiddlewaresOrder = {
   'errors-handler': { active: true },
   cors: { active: true },
   'body-parser': { active: true },

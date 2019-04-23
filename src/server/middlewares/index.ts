@@ -1,38 +1,52 @@
-import fs from 'fs'
-import path from 'path'
-import logger from '../../utils/logger'
-import { CustomApp } from '..'
 import { Middleware } from 'koa'
-import middlewaresOrder from './order_configuration'
+import { CustomApp } from '..'
+import logger from '@src/utils/logger'
+import { isDirectory, getFullPath } from '@src/utils/functions'
+import middlewaresOrder, { MiddlewaresOrder } from './order_configuration'
+
+export interface MiddlewareModule {
+  name: string
+  middlewareModule: Promise<{ default: Middleware }>
+}
 
 export interface MiddlewareHandler {
+  __getAllActiveMiddlewares: (middlewaresOrder: MiddlewaresOrder) => MiddlewareModule[]
   register: (app: CustomApp) => Promise<void>
 }
 
-const middlewareHandler: MiddlewareHandler = {
+const middlewaresHandler: MiddlewareHandler = {
+  __getAllActiveMiddlewares: (middlewaresOrder): MiddlewareModule[] => {
+    const activeMiddlewares: MiddlewareModule[] = []
+
+    Object.keys(middlewaresOrder).forEach(
+      (middlewareFolder): void => {
+        const middlewarePath = getFullPath(__dirname, middlewareFolder)
+        if (isDirectory(middlewarePath) && middlewaresOrder[middlewareFolder].active) {
+          activeMiddlewares.push({ name: middlewareFolder, middlewareModule: import(middlewarePath) })
+        }
+      },
+    )
+
+    return activeMiddlewares
+  },
+
   register: (app): Promise<void> => {
     return new Promise(
-      async (resolve): Promise<void> => {
+      async (resolve, reject): Promise<void> => {
         logger.info('Registering middlewares:')
+        const defers = middlewaresHandler.__getAllActiveMiddlewares(middlewaresOrder)
 
-        const defers: { name: string; module: Promise<{ default: Middleware }> }[] = []
-        Object.keys(middlewaresOrder).forEach(
-          (middlewareFolder): void => {
-            const middlewarePath = path.join(__dirname, middlewareFolder)
-            const stats = fs.lstatSync(middlewarePath)
-            if (stats.isDirectory() && middlewaresOrder[middlewareFolder].active) {
-              defers.push({ name: middlewareFolder, module: import(middlewarePath) })
-            }
-          },
-        )
-
-        const modules = await Promise.all(defers.map((x): Promise<{ default: Middleware }> => x.module))
-        modules.forEach(
-          (module, index): void => {
-            app.use(module.default)
-            logger.verbose(`registered "${defers[index].name}"`)
-          },
-        )
+        try {
+          const middlewares = await Promise.all(defers.map((x): Promise<{ default: Middleware }> => x.middlewareModule))
+          middlewares.forEach(
+            (middleware, index): void => {
+              app.use(middleware.default)
+              logger.verbose(`registered "${defers[index].name}"`)
+            },
+          )
+        } catch (error) {
+          reject(error)
+        }
 
         resolve()
       },
@@ -40,4 +54,4 @@ const middlewareHandler: MiddlewareHandler = {
   },
 }
 
-export default middlewareHandler
+export default middlewaresHandler
