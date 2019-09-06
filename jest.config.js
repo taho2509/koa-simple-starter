@@ -3,20 +3,15 @@ module.exports = {
   testEnvironment: 'node',
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   moduleNameMapper: {
     '^@src/(.*)$': '<rootDir>/$1',
   },
-  rootDir: 'src',
-  bail: 1,
-  verbose: true,
-  collectCoverageFrom: ['**/*.{ts,tsx}', '!**/node_modules/**'],
-  coverageDirectory: '../coverage',
+  collectCoverage: true,
   coverageThreshold: {
     global: {
-      branches: 80,
-      functions: 80,
+      branches: 60,
       lines: 80,
-      statements: -10,
     },
   },
 }

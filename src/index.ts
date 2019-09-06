@@ -1,22 +1,14 @@
-import app from './server'
-import logger from '@src/utils/logger'
+import app from './framework/server'
+import logger from './interfaces/tools/logger'
 
-process.on(
-  'uncaughtException',
-  (e: Error): void => {
-    logger.error('Uncaugth Exception :', e)
-    process.exit(1)
-  },
-)
-process.on(
-  'unhandledRejection',
-  (reason, p): void => {
-    logger.error('Unhandled Rejection.')
-    logger.debug('Promise', p)
-    logger.debug('Reason :', reason)
-    process.exit(1)
-  },
-)
+process.on('uncaughtException', (e: Error): void => {
+  logger.error('Uncaugth Exception :', e)
+})
+process.on('unhandledRejection', (reason, p): void => {
+  logger.error('Unhandled Rejection.')
+  logger.debug('Promise', p)
+  logger.debug('Reason :', reason)
+})
 
-app.boot()
 app.on('application:booted', app.init)
+app.boot()
