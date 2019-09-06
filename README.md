@@ -1,4 +1,4 @@
-# Koa simple starter
+# Koa clean starter
 
 ## Description:
 Simple koa server app written in Typescript with some good practices built in. Like: 
