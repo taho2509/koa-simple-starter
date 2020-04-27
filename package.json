@@ -53,7 +53,7 @@
     "prettier": "^1.18.2",
     "stubby": "^4.1.0",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.2.0",
+    "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   }
 }
