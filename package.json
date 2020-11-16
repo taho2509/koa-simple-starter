@@ -21,7 +21,7 @@
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "cls-hooked": "^4.2.2",
-    "correlation-id": "^3.1.1",
+    "correlation-id": "^3.1.2",
     "dotenv": "^8.2.0",
     "http-status-codes": "^2.1.4",
     "koa": "^2.13.0",
