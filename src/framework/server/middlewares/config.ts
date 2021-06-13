@@ -4,6 +4,8 @@ export interface MiddlewareConfiguration {
 
 const middlewareConfiguration: MiddlewareConfiguration = {
   'correlational-id': { active: true },
+  'authentication-errors-handler': { active: true },
+  jwt: { active: true },
   'errors-handler': { active: true },
   cors: { active: true },
   'body-parser': { active: true },

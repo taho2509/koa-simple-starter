@@ -3,7 +3,7 @@ import { v4 } from 'uuid'
 import correlation from '../../../../interfaces/tools/store'
 
 const correlationalIdMiddleware: Middleware = async (ctx, next): Promise<void> => {
-  const correlationalIdHeaderName = 'X-Correlational-Id'
+  const correlationalIdHeaderName = 'x-trace'
 
   const correlationalId = ctx.get(correlationalIdHeaderName) || v4()
   ctx.set(correlationalIdHeaderName, correlationalId)

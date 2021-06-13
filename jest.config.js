@@ -1,5 +1,8 @@
+const { defaults: tsjPreset } = require('ts-jest/presets')
+
 module.exports = {
   preset: 'ts-jest',
+  transform: tsjPreset.transform,
   testEnvironment: 'node',
   testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
