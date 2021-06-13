@@ -12,7 +12,7 @@ Simple koa server app written in Typescript with some good practices built in. L
  - build container dockerfile configuration
 
 # Important Depencies
-This project has been designed to work over NodeJS v10
+This project has been designed to work over NodeJS v14
 
 ## How to Install
 Run `npm install`

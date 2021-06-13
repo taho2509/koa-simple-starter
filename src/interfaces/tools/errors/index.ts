@@ -19,7 +19,7 @@ class AbstractError extends Error {
 }
 
 export class ValidationError extends AbstractError {
-  public constructor(resource: string, meta: { errorMessages: string[]; payload: {} }) {
+  public constructor(resource: string, meta: { errorMessages: string; payload: {} }) {
     super('Validation Error', {
       code: statusCodes.BAD_REQUEST,
       errorMessages: meta.errorMessages,
@@ -36,7 +36,7 @@ export class NotFoundError extends AbstractError {
   }
 }
 export class BadGateway extends AbstractError {
-  public constructor(resource: string, meta: { errorMessages: string[]; payload: {} }) {
+  public constructor(resource: string, meta: { errorMessages: string; payload: {} }) {
     super('External service has failed', {
       code: statusCodes.BAD_GATEWAY,
       errorMessages: meta.errorMessages,

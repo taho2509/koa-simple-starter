@@ -1,13 +1,13 @@
-import HealthUseCase from '../../../domain/interactors/health-use-case'
-import Response from '../../../domain/entities/response'
+import HealthUseCase from '../../../domain/interactors/health.use-case'
+import { Presenter } from '../../presenter'
 
 export default class HealthController {
-  public constructor() {}
+  public constructor(private readonly presenter: Presenter) {}
 
-  public async get(): Promise<Response> {
+  public async get(): Promise<Presenter> {
     const health = new HealthUseCase()
+    const response = await health.execute()
 
-    let response: Response = await health.execute()
-    return response
+    return this.presenter.present(response).status('Success')
   }
 }
