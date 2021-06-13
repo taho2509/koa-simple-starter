@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import cls from 'cls-hooked'
 
 const store = cls.createNamespace('2588feab-6d80-406a-835d-0e07c15615db')
