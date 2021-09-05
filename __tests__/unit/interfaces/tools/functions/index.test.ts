@@ -30,7 +30,7 @@ describe('Utility functions tests', (): void => {
     it('should throw an error when path is unaccesible or inexistent', (): void => {
       try {
         isDirectory(testPath)
-      } catch (error) {
+      } catch (error: any) {
         expect(error.path).toBe(testPath)
       }
     })

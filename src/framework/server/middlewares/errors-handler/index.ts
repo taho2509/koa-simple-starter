@@ -4,7 +4,7 @@ import logger from '../../../../interfaces/tools/logger'
 const errorsHandler: Middleware = async (ctx, next): Promise<void> => {
   try {
     await next()
-  } catch (error) {
+  } catch (error: any) {
     logger.error('Error found')
     logger.error('The error says: ' + error.message)
     logger.error('Full info: ' + JSON.stringify(error))
