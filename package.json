@@ -25,13 +25,13 @@
     "http-status-codes": "^2.1.4",
     "koa": "^2.13.3",
     "koa-bodyparser": "^4.3.0",
-    "koa-jwt": "^4.0.1",
+    "koa-jwt": "^4.0.3",
     "koa-router": "^10.1.1",
     "uuid": "^8.3.2",
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^3.0.4",
+    "@shopify/jest-koa-mocks": "^3.0.5",
     "@tsconfig/node14": "^1.0.1",
     "@types/cls-hooked": "^4.3.3",
     "@types/http-graceful-shutdown": "^2.3.0",
