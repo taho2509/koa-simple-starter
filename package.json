@@ -31,7 +31,7 @@
     "winston": "^3.7.2"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^3.1.5",
+    "@shopify/jest-koa-mocks": "^4.0.0",
     "@tsconfig/node14": "^1.0.1",
     "@types/cls-hooked": "^4.3.3",
     "@types/http-graceful-shutdown": "^2.3.0",
@@ -45,7 +45,7 @@
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
-    "eslint": "^8.15.0",
+    "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.5.1",
