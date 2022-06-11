@@ -31,7 +31,7 @@
     "winston": "^3.7.2"
   },
   "devDependencies": {
-    "@shopify/jest-koa-mocks": "^3.1.5",
+    "@shopify/jest-koa-mocks": "^4.0.0",
     "@tsconfig/node14": "^1.0.1",
     "@types/cls-hooked": "^4.3.3",
     "@types/http-graceful-shutdown": "^2.3.0",
