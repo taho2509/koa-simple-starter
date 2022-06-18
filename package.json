@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@shopify/jest-koa-mocks": "^4.0.0",
-    "@tsconfig/node14": "^1.0.1",
+    "@tsconfig/node14": "^1.0.3",
     "@types/cls-hooked": "^4.3.3",
     "@types/http-graceful-shutdown": "^2.3.0",
     "@types/jest": "^27.5.0",
